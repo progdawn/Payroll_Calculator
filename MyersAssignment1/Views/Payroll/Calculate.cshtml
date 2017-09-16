@@ -10,6 +10,28 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Calculate</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <style type="text/css">
+        .field-validation-valid, .validation-summary-valid {
+            display: none;
+        }
+
+        .field-validation-error {
+            color: #f00;
+        }
+
+        .validation-summary-errors {
+            color: #f00;
+            font-weight: bold;
+        }
+
+        .input-validation-error {
+            border: 2px solid #f00;
+            background-color: #fee;
+        }
+    </style>
 </head>
 <body>
     <a href="~/home/index">Home</a>
@@ -24,7 +46,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Hours, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextBoxFor(m => m.Hours, new {maxlength = "2", size = "2", style="width:50px;"})
                     @Html.ValidationMessageFor(model => model.Hours, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -40,9 +62,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @*@Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })*@
-                    @Html.DropDownListFor(model => model.MaritalStatus, Model.MaritalList,"--Select--")
+                    @Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
                 </div>
             </div>
 

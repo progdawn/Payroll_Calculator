@@ -13,8 +13,6 @@ namespace MyersAssignment1.Controllers
         public ActionResult Calculate()
         {
             Payroll pay = new Payroll();
-            pay.MaritalList.Add(new SelectListItem { Text = "Single", Value = "1" });
-            pay.MaritalList.Add(new SelectListItem { Text = "Married", Value = "2" });
             return View(pay);
         }
         [HttpPost]
@@ -24,12 +22,18 @@ namespace MyersAssignment1.Controllers
             {
                 pay.GrossPay = pay.Hours * pay.PayRate;
 
-                if (pay.MaritalStatus == "1")
-                    pay.Taxes = pay.GrossPay * .2m;
-                else if (pay.MaritalStatus == "2")
-                    pay.Taxes = pay.GrossPay * .1m;
-                else
-                    pay.Taxes = pay.GrossPay * .1m;
+                switch(pay.MaritalStatus.ToLower())
+                {
+                    case "married":
+                        pay.Taxes = pay.GrossPay * .1m;
+                        break;
+                    case "single":
+                        pay.Taxes = pay.GrossPay * .2m;
+                        break;
+                    default:
+                        pay.Taxes = pay.GrossPay * .2m;
+                        break;
+                }
 
                 pay.Taxes = pay.Taxes - 10 * pay.Dependents;
                 pay.NetPay = pay.GrossPay - pay.Taxes;
